@@ -1,0 +1,76 @@
+﻿@model Meet
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-5 mt-5">
+        <h3 class="mb-3">@Model.Title</h3>
+    </div>
+    <div class="col-2 mt-5">
+        @if (@Model.Creator.UserId == @ViewBag.UserLoggedIn.UserId)
+        {
+        @*<a href="{{meet.Id}}/edit" class="btn btn-primary">Edit</a>*@
+            <a asp-action="DeleteMeet" asp-controller="Home" asp-route-id="@Model.MeetId" class="btn btn-danger">Delete</a>
+        }
+        else
+        {
+            @if (Model.Guests.Any(g => g.JoinedUser == ViewBag.UserLoggedIn))
+            {
+                <a href="/LeaveMeet/@Model.MeetId/ind" class="btn btn-danger">Leave</a>
+            }
+            else
+            {
+
+                <a href="/JoinMeet/@Model.MeetId/ind" class="btn btn-primary">Join</a>
+            }
+        }
+        
+        @* @if (@Model.Creator.UserId == @ViewBag.UserLoggedIn.UserId) *@
+        @*     { *@
+        @*     $1$<a href="{{meet.Id}}/edit" class="btn btn-primary">Edit</a>#1# *@
+        @*         <a asp-action="DeleteMeet" asp-controller="Home" asp-route-id="@Model.MeetId" class="btn btn-danger">Delete</a> *@
+        @*     } *@
+        @*     else if(@Model.Guests.Any(g => g.JoinedUser == @ViewBag.UserLoggedIn)) *@
+        @*     { *@
+        @*         <a href="/LeaveMeet/@Model.MeetId/ind" class="btn btn-danger">Leave</a> *@
+        @*     } *@
+        @*     else *@
+        @*     { *@
+        @*         bool windowOpen = true; *@
+        @*         foreach (var usermeet in ViewBag.UserLoggedIn.JoinedMeets)   *@
+        @*         { *@
+        @*             if (Model.Date <= usermeet.Event.GetEndTime() && Model.Date >= usermeet.Event.Date) *@
+        @*             { *@
+        @*                 windowOpen = false; *@
+        @*             } *@
+        @*         } *@
+        @*         if (windowOpen) *@
+        @*         { *@
+        @*             <a href="/JoinMeet/@Model.MeetId/ind" class="btn btn-primary">Join</a> *@
+        @*         } *@
+        @*         else *@
+        @*         { *@
+        @*             <a href="#" class="btn btn-secondary disabled" aria-disabled="true">Join</a> *@
+        @*         } *@
+        @*     } *@
+
+    </div>
+    <div class="col-12 my-4">
+        <h5 class="mb-5">Event Coordinator: @Model.Creator.Name</h5>
+        <h6 class="mb-3">Event Description:</h6>
+        <p class="fs-5">@Model.Description</p>
+        
+        <h6 class="mt-5">Event Participants:</h6>
+        <ul class="list-group col-3">
+            @foreach (var participant in Model.Guests)
+            {
+                <li class="list-group-item">@participant.JoinedUser.Name</li>
+            }
+        </ul>
+    </div>
+    
+</div>
+

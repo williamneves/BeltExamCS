@@ -1,0 +1,72 @@
+﻿@model Meet
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h3 class="mt-5 mb-3">Create a Meet Up</h3>
+<form asp-action="NewMeet" asp-controller="Home" method="post">
+    <input type="hidden" name="UserId" value="@ViewBag.UserLoggedIn.UserId"/>
+    <div class="row m-auto">
+        <div class="col-4">
+            <div class="mb-3">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control">
+                <small>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </small>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Date"></label>
+                <input asp-for="Date" class="form-control">
+                <small>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </small>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label asp-for="DurationTime"></label>
+                        <input asp-for="DurationTime" class="form-control">
+                        <small>
+                            <span asp-validation-for="DurationTime" class="text-danger"></span>
+                        </small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label asp-for="DurationType"></label>
+                        <select class="form-select" asp-for="DurationType">
+                            <option value="" selected> </option>
+                            <option value="Hour">Hours</option>
+                            <option value="Day">Days</option>
+                        </select>
+                        <small>
+                            <span asp-validation-for="DurationType" class="text-danger"></span>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" style="height: 196px;"></textarea>
+                <small>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </small>
+            </div>
+
+            <div class="w-100">
+                <button type="submit" class="btn btn-primary float-end">Create New Meet</button>
+            </div>
+
+        </div>
+    </div>
+
+
+</form>
